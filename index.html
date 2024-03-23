@@ -6,13 +6,24 @@
     <script src="app.js"></script>
 </head>
 <body>
+    <nav class="navbar" id="navbar">
+        <h1>Death Of The Author</h1>
+    </nav>
+    <!-- Side navigation -->
+    <div class="sidenav">
+        <a href="#" id="sidebarReturn">Home</a>
+        <a href="#" id="sidebarVisitMarket">Market</a>
+        <a href="#">Unused</a>
+        <a href="#">Logs</a>
+    </div>
     <div class="content">
+        <!--Menu containing main writing and market-->
         <div class="menus">
+            <!-- Main -->
             <div class="main">
                 <button id="write">Write words</button>
-                <button id="visit">Visit Market</button>
             </div>
-
+            <!-- Market -->
             <div class="market">
                 <!-- To sell out -->
                 <div class="sellButtons">
@@ -22,15 +33,12 @@
                 </div>
                 <!-- To upgrade author  -->
                 <div class="upgrades">
-                    <button id="ghostWriter">Hire [1] Ghost Writer ($25)</button>
+                    <button id="ghostWriter">Hire [1] Ghost Writer ($5)</button>
                 </div>
                 <!-- Buy -->
                 <div class="items">
                     <button id="buyPen">Buy [1] pen ($50)</button>
                 </div>
-
-
-                <button id="return">Return</button>
             </div>
         </div>
 
