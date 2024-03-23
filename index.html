@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<head>
+    <title>Death Of The Author</title>
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="app.js"></script>
+</head>
+<body>
+    <div class="content">
+        <div class="menus">
+            <div class="main">
+                <button id="write">Write words</button>
+                <button id="visit">Visit Market</button>
+            </div>
+
+            <div class="market">
+                <!-- To sell out -->
+                <div class="sellButtons">
+                    <button id="sell1">Sell 1 word</button>
+                    <button id="sell10">Sell 10 words</button>
+                    <button id="sellAll">Sell all your words</button>
+                </div>
+                <!-- To upgrade author  -->
+                <div class="upgrades">
+                    <button id="ghostWriter">Hire [1] Ghost Writer ($25)</button>
+                </div>
+                <!-- Buy -->
+                <div class="items">
+                    <button id="buyPen">Buy [1] pen ($50)</button>
+                </div>
+
+
+                <button id="return">Return</button>
+            </div>
+        </div>
+
+        <div class="inventory">
+            <p id="money">Money: $0</p>
+            <p id="words">You have written 0 words.</p>
+            <p id="pens">You have 0 pens.</p>
+        </div>
+    </div>
+</body>

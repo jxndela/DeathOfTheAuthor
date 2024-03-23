@@ -1,0 +1,26 @@
+.inventory{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.market{
+    display: none;
+}
+
+.sellButtons{
+    display: grid;
+    grid-template-columns: repeat(3, 72px);
+    margin-bottom: 10px;
+}
+
+.upgrades, .items button{
+    display: grid;
+    grid-template-columns: repeat(1, 96px);
+    margin-bottom: 10px;
+}
+
+button{
+background-color: whitesmoke;
+font-size: 18;
+}
