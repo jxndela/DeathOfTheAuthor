@@ -1,0 +1,41 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar {
+  background-color: #333; /* Set the navbar background color */
+}
+
+.sidenav {
+  height: 100%;
+  width: 200px;
+  position: fixed;
+  z-index: 1;
+  top: 56px; /* Adjust the top position to make space for the navbar */
+  left: 0;
+  background-color: #858e97; /* Set the sidebar background color */
+  padding-top: 20px;
+}
+
+.sidenav button {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #f1f1f1;
+  display: block;
+}
+
+.main {
+  margin-left: 200px; /* Adjust the left margin to make space for the sidebar */
+  padding: 20px;
+}
+
+.progress{
+  margin-bottom: 10px;
+}
+
+.card{
+  margin-bottom: 10px;
+}

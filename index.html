@@ -1,51 +1,177 @@
 <!DOCTYPE html>
-<head>
-    <title>Death Of The Author</title>
-    <link rel="stylesheet" type="text/css" href="main.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="app.js"></script>
-</head>
-<body>
-    <nav class="navbar" id="navbar">
-        <h1>Death Of The Author</h1>
-    </nav>
-    <!-- Side navigation -->
-    <div class="sidenav">
-        <a href="#" id="sidebarReturn">Home</a>
-        <a href="#" id="sidebarVisitMarket">Market</a>
-        <a href="#">Unused</a>
-        <a href="#">Logs</a>
-    </div>
-    <div class="content">
-        <!--Menu containing main writing and market-->
-        <div class="menus">
-            <!-- Main -->
-            <div class="main">
-                <button id="write">Write words</button>
-            </div>
-            <!-- Market -->
-            <div class="market">
-                <!-- To sell out -->
-                <div class="sellButtons">
-                    <button id="sell1">Sell 1 word</button>
-                    <button id="sell10">Sell 10 words</button>
-                    <button id="sellAll">Sell all your words</button>
-                </div>
-                <!-- To upgrade author  -->
-                <div class="upgrades">
-                    <button id="ghostWriter">Hire [1] Ghost Writer ($5)</button>
-                </div>
-                <!-- Buy -->
-                <div class="items">
-                    <button id="buyPen">Buy [1] pen ($50)</button>
-                </div>
-            </div>
-        </div>
+<html lang="en">
 
-        <div class="inventory">
-            <p id="money">Money: $0</p>
-            <p id="words">You have written 0 words.</p>
-            <p id="pens">You have 0 pens.</p>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous">
+    </script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>Death of the Author</title>
+    <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Main Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand">Death of the Author</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Github</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Discord</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Side Navbar -->
+    <div class="sidenav">
+        <button id="navHome" class="btn btn-transparent">Home</button>
+        <button id="navLibrary" class="btn btn-transparent">Library</button>
+        <button id="navMarketplace" class="btn btn-transparent">Marketplace</button>
+        <button id="navSettings" class="btn btn-transparent">Settings</button>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main">
+        <div id="home" style="display: none;" class="content-section">
+            <h2>Home</h2>
+            <p>Put your thoughts into words, and if you're brave enough, string them into a sentence.</p>
+            <div class="container-fluid " id="generators">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Thoughts</h5>
+                        <p class="card-text">Put your thoughts into words.</p>
+                        <div class="progress">
+                            <div id="thoughtsProgress" class="progress-bar bg-dark" style="width:0%;"></div>
+                        </div>
+                        <button id="generateThoughts" class="btn btn-dark">Generate Thoughts</button>
+                        <button id="synthesizeThoughts" class="btn btn-dark">Synthesize Information (5 Thoughts)
+                        </button>
+                        <button id="subconsciousThinking" class="btn btn-dark">Subconscious Thinking (100
+                            Thoughts)</button>
+                    </div>
+                </div>
+                <div class="card ">
+                    <div class="card-body">
+                        <h5 class="card-title">Words</h5>
+                        <p class="card-text">Admire the beauty of meaning birthed through syllables.</p>
+                        <div class="progress">
+                            <div id="wordsProgress" class="progress-bar bg-dark" style="width:0%;"></div>
+                        </div>
+                        <button id="generateWords" class="btn btn-dark">Form words</button>
+                    </div>
+                </div>
+                <!-- Alert section-->
+                <div class="container mt-3">
+                    <div class="alert alert-success alert-dismissible fade show d-none" id="positivePopUp">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        <strong>Success!</strong> This alert box could indicate a successful or positive action.
+                    </div>
+                    <div class="alert alert-info alert-dismissible fade show d-none" id="neutralPopUp">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        <strong>Info!</strong> This alert box could indicate a neutral informative change or action.
+                    </div>
+                    <div class="alert alert-warning alert-dismissible fade show d-none" id="warningPopUp">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        <strong>Warning!</strong> This alert box could indicate a warning that might need attention.
+                    </div>
+                    <div class="alert alert-danger alert-dismissible fade show d-none" id="dangerPopUp">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        <strong>Danger!</strong> This alert box could indicate a dangerous or potentially negative
+                        action.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="library" style="display: none;" class="content-section">
+            <h2>Library</h2>
+            <p>The literary world helps you to develop knowledge.</p>
+            <h2>Classics</h2>
+            <div class="container text-center">
+                <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+                    <div class="col">
+                        <div class="p-3">Row column</div>
+                    </div>
+                    <div class="col">
+                        <div class="p-3">Row column</div>
+                    </div>
+                    <div class="col">
+                        <div class="p-3">Row column</div>
+                    </div>
+                    <div class="col">
+                        <div class="p-3">Row column</div>
+                    </div>
+                    <div class="col">
+                        <div class="p-3">Row column</div>
+                    </div>
+                    <div class="col">
+                        <div class="p-3">Row column</div>
+                    </div>
+                    <div class="col">
+                        <div class="p-3">Row column</div>
+                    </div>
+                    <div class="col">
+                        <div class="p-3">Row column</div>
+                    </div>
+                    <div class="col">
+                        <div class="p-3">Row column</div>
+                    </div>
+                    <div class="col">
+                        <div class="p-3">Row column</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="marketplace" style="display: none;" class="content-section">
+            <h2>Marketplace</h2>
+            <p>This is the marketplace page of the game. You can put any information you want here.</p>
+        </div>
+        <div id="settings" style="display: none;" class="content-section">
+            <h2>Settings</h2>
+            <p>This is the settings page of the game. You can put any information you want here.</p>
         </div>
     </div>
+
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-bottom justify-content-end">
+        <div class="container-fluid justify-content-end">
+            <div class="btn-group dropup">
+                <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown"
+                    data-bs-auto-close="false" id="resourcesToggler">Resources</button>
+                <ul class="dropdown-menu dropdown-menu-end" id="resourcesDisplay">
+                    <li>
+                        <h6 class="dropdown-header">Resources</h6>
+                    </li>
+                    <li><a class="dropdown-item" href="#" id="money">Money: $0</a></li>
+                    <li><a class="dropdown-item" href="#" id="thoughts">Thoughts: 0</a></li>
+                    <li><a class="dropdown-item" href="#" id="words">Words: 0</a></li>
+                    <li><a class="dropdown-item" href="#" id="sentences">Sentences: 0</a></li>
+                    <li><a class="dropdown-item" href="#" id="paragraphs">Paragraphs: 0</a></li>
+                    <li><a class="dropdown-item" href="#" id="pages">Pages: 0</a></li>
+                    <li><a class="dropdown-item" href="#" id="chapters">Chapters: 0</a></li>
+                    <li><a class="dropdown-item" href="#" id="novels">Novels: 0</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- JavaScript and jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="script.js"></script>
 </body>
+
+</html>
