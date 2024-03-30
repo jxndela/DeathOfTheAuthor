@@ -2,11 +2,10 @@ $(document).ready(function() {
     // Initialilze game variables
     var money = 0; // Money
     var thoughts = 0; // Base Material
-    var thoughtFragments = 0; // Progress for generating thoughts
-    var thoughtFragmentsIncrement = 10; // Increment for generating thoughts
-    var maxSynthesisReached = false; // Synthesis (formed from thoughts)
-    var subconscious = 0; // Thought production automation
-    var subconsciousExecuted = false; // Check if subconcious thinking has been executed
+    var thoughtAutomator = 0; // Thought Automator
+    var thoughtMultiplier = 1; // Thought Multiplier
+    var thoughtAutomatorPrice = 20; // Thought Automator Price
+    var thoughtGainedPerSecond = 0; // Thoughts gained per second
     var words = 0; // Words (formed from thoughts)
     var sentences = 0; // Sentences (formed from words)
     var paragraphs = 0; // Paragraphs (formed from sentences)
@@ -34,68 +33,32 @@ $(document).ready(function() {
         showContent("settings");
     });
 
+    // Auto generation, tick speed 1 second
     setInterval(function() {
-        if(thoughtFragments >= 100) {
-            thoughtFragments = 0; // Reset progress
-            $("#thoughtsProgress").attr("aria-valuenow", thoughtFragments);
-            $("#thoughtsProgress").css("width", "0%");
-            thoughts+= 1; // Add thoughts
-        } else{
-            thoughtFragments += thoughtFragmentsIncrement * subconscious;
-            $("#thoughtsProgress").attr("aria-valuenow", thoughtFragments);
-            $("#thoughtsProgress").css("width", thoughtFragments + "%");
+        if(thoughtAutomator > 0) {
+            thoughtGainedPerSecond = thoughtAutomator * thoughtMultiplier;
+            thoughts += thoughtGainedPerSecond;
         }
         updateInventory();
     },1000);
 
-
+    // Thought generation
     $("#generateThoughts").click(function() {
-        // Check if progress is at 100
-        if(thoughtFragments >= 100) {
-            thoughtFragments = 0; // Reset progress
-            $("#thoughtsProgress").attr("aria-valuenow", thoughtFragments);
-            $("#thoughtsProgress").css("width", "0%");
-            thoughts+= 1; // Add thoughts
-        } else{
-            thoughtFragments += thoughtFragmentsIncrement
-            $("#thoughtsProgress").attr("aria-valuenow", thoughtFragments);
-            $("#thoughtsProgress").css("width", thoughtFragments + "%");
-        }
+        thoughts++;
         updateInventory();
     });
 
-    $("#synthesizeThoughts").click(function() {
-        // Success Case
-        if (!maxSynthesisReached){
-            if(thoughts >= 5) {
-                thoughts-= 5;
-                thoughtFragmentsIncrement += 10;
-                if (thoughtFragmentsIncrement >= 100) {
-                    thoughtFragmentsIncrement = 100;
-                    maxSynthesisReached = true;
-                    $("#synthesizeThoughts").prop('disabled', true);
-                    $("#synthesizeThoughts").html("Max Synthesis Reached");
-                }
-            }
+    $("#thoughtAutomator").click(function() {
+        if (thoughts >= thoughtAutomatorPrice) {
+            thoughts -= thoughtAutomatorPrice;
+            thoughtAutomator++;
+            updateInventory();
+            thoughtAutomatorPrice = increasePrice(thoughtAutomatorPrice, 1.05, thoughtAutomator);
+            thoughtAutomatorPrice = roundDown(thoughtAutomatorPrice);
+            $("#thoughtAutomator").html("Thinkers (" + thoughtAutomatorPrice + " Thoughts)"); // Update price
+            $("#thoughtAutomatorCounterBottom").show();
+            $("#thoughtAutomatorCounterBottom").html("Thinkers: " + thoughtAutomator);
         }
-        updateInventory();
-    });
-
-    $("#subconsciousThinking").click(function() {
-        if (!subconsciousExecuted) {
-            // Success Case
-            if (thoughts >= 1) {
-                thoughts -= 100;
-                subconscious++;
-                // Set the flag to true to indicate the action has been performed
-                subconsciousExecuted = true;
-                // Disable the button
-                $(this).prop('disabled', true);
-                $(this).html("Subconscious Thinking (Executed)");
-            }
-        }
-        // Update the inventory regardless of whether the action was performed
-        updateInventory();
     });
 
     // Function for showing content
@@ -106,7 +69,9 @@ $(document).ready(function() {
 
     function updateInventory() {
         $("#money").html("Money: $" + money);
-        $("#thoughts").html("Thoughts: " + thoughts);
+        $("#thoughtsCounter").html("Thoughts: " + thoughts);
+        $("#thoughtsCounterBottom").html("Thoughts: " + thoughts);
+        $("#thoughtAutomatorCounterBottom").html("Thinkers: " + thoughtAutomator);
         $("#words").html("Words: " + words);
         $("#sentences").html("Sentences: " + sentences);
         $("#paragraphs").html("Paragraphs: " + paragraphs);
@@ -115,4 +80,12 @@ $(document).ready(function() {
         $("#novels").html("Novels: " + novels);
     }
     
+    function increasePrice(price, exponent, count) {
+        total = price * Math.pow(exponent, count);
+        return total;
+    }
+
+    function roundDown(number) {
+        return Math.floor(number);
+    }
 });
