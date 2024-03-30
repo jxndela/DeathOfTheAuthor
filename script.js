@@ -3,7 +3,8 @@ $(document).ready(function() {
     var money = 0; // Money
     var thoughts = 0; // Base Material
     var thoughtFragments = 0; // Progress for generating thoughts
-    var synthesis = 0; // Synthesis (formed from thoughts)
+    var thoughtFragmentsIncrement = 10; // Increment for generating thoughts
+    var maxSynthesisReached = false; // Synthesis (formed from thoughts)
     var subconscious = 0; // Thought production automation
     var subconsciousExecuted = false; // Check if subconcious thinking has been executed
     var words = 0; // Words (formed from thoughts)
@@ -38,9 +39,9 @@ $(document).ready(function() {
             thoughtFragments = 0; // Reset progress
             $("#thoughtsProgress").attr("aria-valuenow", thoughtFragments);
             $("#thoughtsProgress").css("width", "0%");
-            thoughts+= 1 + synthesis; // Add thoughts
+            thoughts+= 1; // Add thoughts
         } else{
-            thoughtFragments += 10 * subconscious;
+            thoughtFragments += thoughtFragmentsIncrement * subconscious;
             $("#thoughtsProgress").attr("aria-valuenow", thoughtFragments);
             $("#thoughtsProgress").css("width", thoughtFragments + "%");
         }
@@ -54,9 +55,9 @@ $(document).ready(function() {
             thoughtFragments = 0; // Reset progress
             $("#thoughtsProgress").attr("aria-valuenow", thoughtFragments);
             $("#thoughtsProgress").css("width", "0%");
-            thoughts+= 1 + synthesis; // Add thoughts
+            thoughts+= 1; // Add thoughts
         } else{
-            thoughtFragments += 10
+            thoughtFragments += thoughtFragmentsIncrement
             $("#thoughtsProgress").attr("aria-valuenow", thoughtFragments);
             $("#thoughtsProgress").css("width", thoughtFragments + "%");
         }
@@ -65,9 +66,17 @@ $(document).ready(function() {
 
     $("#synthesizeThoughts").click(function() {
         // Success Case
-        if(thoughts >= 5) {
-            thoughts-= 5;
-            synthesis++;
+        if (!maxSynthesisReached){
+            if(thoughts >= 5) {
+                thoughts-= 5;
+                thoughtFragmentsIncrement += 10;
+                if (thoughtFragmentsIncrement >= 100) {
+                    thoughtFragmentsIncrement = 100;
+                    maxSynthesisReached = true;
+                    $("#synthesizeThoughts").prop('disabled', true);
+                    $("#synthesizeThoughts").html("Max Synthesis Reached");
+                }
+            }
         }
         updateInventory();
     });
