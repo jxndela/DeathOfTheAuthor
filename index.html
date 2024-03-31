@@ -60,16 +60,17 @@
                         <p class="card-text" id="thoughtsCounter">Thoughts: 0</p>
                         <button id="generateThoughts" class="btn btn-dark">Generate Thoughts</button>
                         <button id="thoughtAutomator" class="btn btn-dark">Hire thinkers (20 Thoughts)</button>
+                        <button id="wordUnlock" class="btn btn-dark">Unlock words. (500 Thoughts)</button>
                     </div>
                 </div>
                 <!-- Section for words-->
-                <div class="card ">
+                <div class="card" id="wordMenu" style="display: none;">
                     <div class="card-body">
                         <h5 class="card-title">Words</h5>
-                        <p class="card-text">Admire the beauty of meaning birthed through syllables.</p>
-                        <div class="progress">
-                            <div id="wordsProgress" class="progress-bar bg-dark" style="width:0%;"></div>
-                        </div>
+                        <p class="card-text">Words flow through you as seemlessly as your thoughts.</p>
+                        <p class="card-text" id="wordsCounter">Words: 0</p>
+                        <p class="card-text" id="wordsEmpowerThoughts">Your words are now empowering your thoughts by 1x
+                        </p>
                         <button id="generateWords" class="btn btn-dark">Form words</button>
                     </div>
                 </div>
@@ -158,9 +159,11 @@
                     </li>
                     <li><a class="dropdown-item" href="#" id="money">Money: $0</a></li>
                     <li><a class="dropdown-item" href="#" id="thoughtsCounterBottom">Thoughts: 0</a></li>
-                    <li><a class="dropdown-item" style="display: none;" href="#" id="thoughtAutomatorCounterBottom">Thinkers: 0</a></li>
+                    <li><a class="dropdown-item" style="display: none;" href="#"
+                            id="thoughtsAutomatorCounterBottom">Thinkers: 0</a></li>
                     <!-- TODO make it such that resources only appear once they are unlocked-->
-                    <li><a class="dropdown-item" style="display: none;" href="#" id="words">Words: 0</a></li>
+                    <li><a class="dropdown-item" style="display: none;" href="#" id="wordsCounterBottom">Words: 0</a>
+                    </li>
                     <li><a class="dropdown-item" style="display: none;" href="#" id="sentences">Sentences: 0</a></li>
                     <li><a class="dropdown-item" style="display: none;" href="#" id="paragraphs">Paragraphs: 0</a></li>
                     <li><a class="dropdown-item" style="display: none;" href="#" id="pages">Pages: 0</a></li>
@@ -173,7 +176,8 @@
 
     <!-- JavaScript and jQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="script.js"></script>
+    <script src="js/object.js"></script>
+    <script src="js/script.js"></script>
 </body>
 
 </html>
